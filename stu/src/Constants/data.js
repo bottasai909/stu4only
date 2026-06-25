@@ -1,0 +1,135 @@
+export const SUBJECTS = {
+  MPC: [
+    {
+      id: "maths2a",
+      name: "Mathematics IIA",
+      year: "2nd",
+      icon: "📐",
+      chapters: [
+        "Complex Numbers","Quadratic Expressions","Theory of Equations",
+        "Permutations","Binomial Theorem","Partial Fractions",
+        "Measures of Dispersion","Probability","Random Variables","Statistics",
+      ],
+    },
+    {
+      id: "maths2b",
+      name: "Mathematics IIB",
+      year: "2nd",
+      icon: "📊",
+      chapters: [
+        "Circle","System of Circles","Parabola","Ellipse",
+        "Hyperbola","Integration","Definite Integrals","Differential Equations",
+      ],
+    },
+    {
+      id: "maths1a",
+      name: "Mathematics IA",
+      year: "1st",
+      icon: "🔢",
+      chapters: [
+        "Functions","Mathematical Induction","Matrices","Determinants",
+        "Vector Algebra 3D","Trigonometry","Inverse Trigonometric Functions",
+        "Hyperbolic Functions","Properties of Triangles",
+      ],
+    },
+    {
+      id: "maths1b",
+      name: "Mathematics IB",
+      year: "1st",
+      icon: "📈",
+      chapters: [
+        "Locus","Transformation of Axes","Straight Lines","Pair of Lines",
+        "3D Coordinates","DC & DRs","Plane","Limits & Continuity",
+        "Differentiation","Applications of Derivatives",
+      ],
+    },
+    {
+      id: "physics",
+      name: "Physics",
+      year: "1st & 2nd",
+      icon: "⚛️",
+      chapters: [
+        "Physical World","Units & Measurements","Motion in a Straight Line",
+        "Laws of Motion","Work & Energy","Systems of Particles","Gravitation",
+        "Thermal Properties","Thermodynamics","Kinetic Theory","Oscillations","Waves",
+      ],
+    },
+    {
+      id: "chemistry",
+      name: "Chemistry",
+      year: "1st & 2nd",
+      icon: "🧪",
+      chapters: [
+        "Atomic Structure","Chemical Bonding","States of Matter","Thermodynamics",
+        "Equilibrium","Electrochemistry","Chemical Kinetics","Surface Chemistry",
+        "p-Block Elements","d-Block Elements","Coordination Compounds","Organic Chemistry",
+      ],
+    },
+  ],
+};
+
+export const QUIZ_QUESTIONS = {
+  maths2a: [
+    { id: 1, q: "If z = 3 + 4i, then |z| equals:", options: ["3","4","5","7"], correct: 2, explanation: "|z| = √(3² + 4²) = √25 = 5" },
+    { id: 2, q: "The number of ways to arrange 5 people in a row is:", options: ["25","60","120","720"], correct: 2, explanation: "5! = 120" },
+    { id: 3, q: "The sum of coefficients in (x + y)^4 is:", options: ["8","12","16","20"], correct: 2, explanation: "Put x=y=1: 2^4 = 16" },
+    { id: 4, q: "If A and B are mutually exclusive events, P(A∪B) =", options: ["P(A)·P(B)","P(A)+P(B)","P(A)−P(B)","P(A)/P(B)"], correct: 1, explanation: "P(A∪B) = P(A) + P(B)" },
+    { id: 5, q: "The quadratic equation with roots 2 and 3 is:", options: ["x²-5x+6=0","x²+5x+6=0","x²-5x-6=0","x²+5x-6=0"], correct: 0, explanation: "Sum=5, product=6 → x²-5x+6=0" },
+  ],
+  physics: [
+    { id: 1, q: "SI unit of force is:", options: ["Joule","Newton","Pascal","Watt"], correct: 1, explanation: "Newton (N) = kg·m/s²" },
+    { id: 2, q: "A body moves 10m in 2s and next 10m in 3s. Average velocity:", options: ["4 m/s","3 m/s","2 m/s","5 m/s"], correct: 0, explanation: "20/5 = 4 m/s" },
+    { id: 3, q: "Gravitational acceleration on Earth (g) ≈", options: ["8.9 m/s²","9.8 m/s²","10.8 m/s²","11.9 m/s²"], correct: 1, explanation: "g = 9.8 m/s²" },
+    { id: 4, q: "Law of conservation of energy states:", options: ["Energy is created","Energy is destroyed","Energy cannot be created or destroyed","Energy changes form only"], correct: 2, explanation: "Energy is conserved" },
+    { id: 5, q: "Time period of simple pendulum depends on:", options: ["Mass only","Length only","Both mass and length","Neither"], correct: 1, explanation: "T = 2π√(L/g)" },
+  ],
+  chemistry: [
+    { id: 1, q: "Atomic number of Carbon is:", options: ["4","6","8","12"], correct: 1, explanation: "Carbon has 6 protons" },
+    { id: 2, q: "pH of a neutral solution at 25°C:", options: ["0","7","14","1"], correct: 1, explanation: "[H⁺]=[OH⁻]=10⁻⁷ → pH=7" },
+    { id: 3, q: "Which bond is the strongest?", options: ["Ionic","Covalent","Hydrogen","Van der Waals"], correct: 1, explanation: "Covalent bonds are generally strongest" },
+    { id: 4, q: "Avogadro's number is approximately:", options: ["6.022×10²³","3.011×10²³","6.022×10²²","1.204×10²⁴"], correct: 0, explanation: "Nₐ = 6.022×10²³" },
+    { id: 5, q: "Which element is most electronegative?", options: ["Oxygen","Nitrogen","Fluorine","Chlorine"], correct: 2, explanation: "Fluorine = 3.98 Pauling" },
+  ],
+};
+
+export const EAMCET_QUESTIONS = Array.from({ length: 20 }, (_, i) => ({
+  id: i + 1,
+  subject: i < 7 ? "Mathematics" : i < 14 ? "Physics" : "Chemistry",
+  q: [
+    "If f(x) = x² + 2x + 1, then f(−1) =",
+    "The derivative of sin(x) is:",
+    "∫x dx =",
+    "lim(x→0) sin(x)/x =",
+    "Equation of circle with center (0,0) and radius r:",
+    "Rank of a 3×3 identity matrix:",
+    "Value of cos(60°) =",
+    "Force = Mass × ___",
+    "Projectile at 45°, maximum range when:",
+    "Ohm's Law states V =",
+    "Electric field inside a conductor is:",
+    "Power P = V²/___",
+    "Speed of light in vacuum =",
+    "Capacitance unit is:",
+    "Benzene molecular formula:",
+    "Hybridization of carbon in CH₄:",
+    "pH of HCl (0.01M):",
+    "Oxidation state of S in H₂SO₄:",
+    "Catalyst in Haber's process:",
+    "Radioactivity was discovered by:",
+  ][i],
+  options: [
+    ["0","1","2","4"],["cos(x)","−cos(x)","tan(x)","sec(x)"],
+    ["x²/2+C","x²+C","2x+C","x/2+C"],["0","1","∞","−1"],
+    ["x²+y²=r","x²+y²=r²","x+y=r","x²−y²=r²"],["0","1","2","3"],
+    ["0","0.5","√3/2","1"],["Velocity","Acceleration","Distance","Time"],
+    ["30°","45°","60°","90°"],["IR","I/R","I×R","I+R"],
+    ["Maximum","Zero","Infinite","Constant"],["R","IR","I","R²"],
+    ["3×10⁸ m/s","3×10⁶ m/s","3×10⁴ m/s","3×10¹⁰ m/s"],
+    ["Ohm","Farad","Henry","Tesla"],["C₆H₆","C₆H₁₂","C₆H₆O","C₆H₅OH"],
+    ["sp","sp²","sp³","sp³d"],["1","2","4","7"],
+    ["+2","+4","+6","+8"],["Fe","Ni","Os","Pt"],
+    ["Curie","Rutherford","Becquerel","Bohr"],
+  ][i],
+  correct: [0,0,0,1,1,3,1,1,1,2,1,0,0,1,0,2,1,2,2,2][i],
+  explanation: "Based on AP State Board Intermediate syllabus — EAMCET pattern",
+}));
