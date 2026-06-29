@@ -1,14 +1,14 @@
 import { AppProvider, useApp } from "./context/AppContext";
 import Navbar      from "./Components/Navbar";
 import Footer      from "./Components/Footer";
-import LandingPage from "./pages/LandingPage";
-import AuthPage    from "./pages/AuthPage";
-import Dashboard   from "./pages/Dashboard";
-import SubjectsPage from "./pages/SubjectsPage";
-import SubjectPage from "./pages/SubjectPage";
-import QuizPage    from "./pages/QuizPage";
-import EamcetPage  from "./pages/EamcetPage";
-import DemoPage    from "./pages/DemoPage";
+import LandingPage from "./Pages/LandingPage";
+import AuthPage    from "./Pages/AuthPage";
+import Dashboard   from "./Pages/Dashboard";
+import SubjectsPage from "./Pages/SubjectsPage";
+import SubjectPage from "./Pages/SubjectPage";
+import QuizPage    from "./Pages/QuizPage";
+import EamcetPage  from "./Pages/EamcetPage";
+import DemoPage    from "./Pages/DemoPage";
 
 function AppInner() {
   const { C, page, user } = useApp();

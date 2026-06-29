@@ -1,5 +1,5 @@
 import { useApp } from "../context/AppContext";
-import { SUBJECTS } from "../constants/data";
+import { SUBJECTS } from "../Constants/data";
 import QuizCard from "../Components/Quizcard";
 
 export default function LandingPage() {

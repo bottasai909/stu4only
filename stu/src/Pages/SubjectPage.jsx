@@ -1,5 +1,5 @@
 import { useApp } from "../context/AppContext";
-import { QUIZ_QUESTIONS } from "../constants/data";
+import { QUIZ_QUESTIONS } from "../Constants/data";
 
 export default function SubjectPage() {
   const { C, nav, user, activeSubject, setQuizState } = useApp();
