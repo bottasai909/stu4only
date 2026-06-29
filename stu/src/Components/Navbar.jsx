@@ -1,7 +1,21 @@
+import { useState, useEffect } from "react";
 import { useApp } from "../context/AppContext";
 
 export default function Navbar() {
   const { dark, setDark, C, page, nav, user, setUser, setAuthPage } = useApp();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(typeof window !== "undefined" ? window.innerWidth < 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+      if (window.innerWidth >= 768) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const navItems = user
     ? [["Dashboard","dashboard"],["Subjects","subjects"],["EAMCET","eamcet"],["Demo","demo"]]
@@ -68,7 +82,7 @@ export default function Navbar() {
     <nav style={styles.navbar}>
       <div 
         style={{ display: "flex", alignItems: "center", gap: 10, cursor: "pointer" }} 
-        onClick={() => nav("landing")}
+        onClick={() => { nav("landing"); setIsOpen(false); }}
       >
         <svg 
           width="32" 
@@ -92,51 +106,156 @@ export default function Navbar() {
         <span style={styles.logo}>stu4only</span>
       </div>
 
-      <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
-        {navItems.map(([label, pg]) => (
+      {isMobile ? (
+        <div style={{ display: "flex", gap: 12, alignItems: "center" }}>
+          {/* Dark mode toggle */}
           <button
-            key={pg}
-            style={styles.navBtn(page === pg)}
-            onClick={() => pg === "contact" ? handleContact() : nav(pg)}
+            onClick={() => setDark(!dark)}
+            style={{
+              background: C.bg,
+              border: `1px solid ${C.border}`,
+              borderRadius: 20,
+              padding: "6px 12px",
+              cursor: "pointer",
+              fontSize: 16,
+            }}
           >
-            {label}
+            {dark ? "☀️" : "🌙"}
           </button>
-        ))}
-      </div>
 
-      <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-        {/* Dark mode toggle */}
-        <button
-          onClick={() => setDark(!dark)}
-          style={{
-            background: C.bg,
-            border: `1px solid ${C.border}`,
-            borderRadius: 20,
-            padding: "6px 12px",
-            cursor: "pointer",
-            fontSize: 16,
-          }}
-        >
-          {dark ? "☀️" : "🌙"}
-        </button>
+          {/* Hamburger Menu Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              fontSize: 24,
+              color: C.text,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              padding: 4,
+            }}
+          >
+            {isOpen ? "✕" : "☰"}
+          </button>
+        </div>
+      ) : (
+        <>
+          <div style={{ display: "flex", gap: 4, alignItems: "center" }}>
+            {navItems.map(([label, pg]) => (
+              <button
+                key={pg}
+                style={styles.navBtn(page === pg)}
+                onClick={() => pg === "contact" ? handleContact() : nav(pg)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
 
-        {user ? (
-          <>
-            <div style={styles.badge}>👤 {user.name}</div>
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+            {/* Dark mode toggle */}
             <button
-              style={styles.btn("danger")}
-              onClick={() => { setUser(null); nav("landing"); }}
+              onClick={() => setDark(!dark)}
+              style={{
+                background: C.bg,
+                border: `1px solid ${C.border}`,
+                borderRadius: 20,
+                padding: "6px 12px",
+                cursor: "pointer",
+                fontSize: 16,
+              }}
             >
-              Logout
+              {dark ? "☀️" : "🌙"}
             </button>
-          </>
-        ) : (
-          <>
-            <button style={styles.btn("ghost")} onClick={() => { setAuthPage("login"); nav("auth"); }}>Login</button>
-            <button style={styles.btn("primary")} onClick={() => { setAuthPage("register"); nav("auth"); }}>Sign Up</button>
-          </>
-        )}
-      </div>
+
+            {user ? (
+              <>
+                <div style={styles.badge}>👤 {user.name}</div>
+                <button
+                  style={styles.btn("danger")}
+                  onClick={() => { setUser(null); nav("landing"); }}
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <button style={styles.btn("ghost")} onClick={() => { setAuthPage("login"); nav("auth"); }}>Login</button>
+                <button style={styles.btn("primary")} onClick={() => { setAuthPage("register"); nav("auth"); }}>Sign Up</button>
+              </>
+            )}
+          </div>
+        </>
+      )}
+
+      {/* Mobile Dropdown Drawer */}
+      {isMobile && isOpen && (
+        <div style={{
+          position: "absolute",
+          top: 64,
+          left: 0,
+          width: "100%",
+          background: C.card,
+          borderBottom: `1px solid ${C.border}`,
+          boxShadow: "0 8px 16px rgba(0,0,0,0.1)",
+          display: "flex",
+          flexDirection: "column",
+          padding: 16,
+          gap: 12,
+          zIndex: 999,
+          boxSizing: "border-box",
+        }}>
+          {navItems.map(([label, pg]) => (
+            <button
+              key={pg}
+              style={{
+                ...styles.navBtn(page === pg),
+                width: "100%",
+                textAlign: "left",
+                padding: "12px 16px",
+              }}
+              onClick={() => {
+                setIsOpen(false);
+                pg === "contact" ? handleContact() : nav(pg);
+              }}
+            >
+              {label}
+            </button>
+          ))}
+
+          <hr style={{ border: "none", borderTop: `1px solid ${C.border}`, margin: "4px 0" }} />
+
+          {user ? (
+            <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+              <div style={{ ...styles.badge, textAlign: "center" }}>👤 {user.name}</div>
+              <button
+                style={{ ...styles.btn("danger"), width: "100%", padding: "12px" }}
+                onClick={() => { setUser(null); nav("landing"); setIsOpen(false); }}
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              <button 
+                style={{ ...styles.btn("ghost"), width: "100%", padding: "12px" }} 
+                onClick={() => { setAuthPage("login"); nav("auth"); setIsOpen(false); }}
+              >
+                Login
+              </button>
+              <button 
+                style={{ ...styles.btn("primary"), width: "100%", padding: "12px" }} 
+                onClick={() => { setAuthPage("register"); nav("auth"); setIsOpen(false); }}
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </nav>
   );
 }

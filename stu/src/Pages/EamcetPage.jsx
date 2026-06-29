@@ -9,6 +9,13 @@ export default function EamcetPage() {
   const [answers,   setAnswers]   = useState({});
   const [submitted, setSubmitted] = useState(false);
   const [timer,     setTimer]     = useState(160*60);
+  const [isMobile,  setIsMobile]  = useState(typeof window !== "undefined" ? window.innerWidth < 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -40,7 +47,7 @@ export default function EamcetPage() {
       <div style={card()}>
         <h2 style={{ textAlign:"center", fontSize:28, fontWeight:900, marginBottom:8 }}>🎯 EAMCET Engineering Mock Test</h2>
         <p style={{ textAlign:"center", color:C.sub, marginBottom:28 }}>AP & Telangana EAMCET Pattern — Full Length</p>
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:16, marginBottom:24 }}>
+        <div style={{ display:"grid", gridTemplateColumns:isMobile ? "1fr" : "1fr 1fr", gap:16, marginBottom:24 }}>
           {[["Questions","160 (Demo: 20)"],["Duration","160 Minutes"],["Sections","Maths + Physics + Chemistry"],["Marking","+1 Correct, 0 Wrong"]].map(([l,v]) => (
             <div key={l} style={{ ...card(16), textAlign:"center" }}>
               <div style={{ fontWeight:700, fontSize:16 }}>{v}</div>
@@ -110,7 +117,7 @@ export default function EamcetPage() {
         </div>
       </div>
 
-      <div style={{ display:"grid", gridTemplateColumns:"1fr 200px", gap:16 }}>
+      <div style={{ display:"grid", gridTemplateColumns:isMobile ? "1fr" : "1fr 200px", gap:16 }}>
         {/* Question */}
         <div style={card()}>
           <div style={{ display:"flex", gap:10, marginBottom:16, flexWrap:"wrap" }}>
